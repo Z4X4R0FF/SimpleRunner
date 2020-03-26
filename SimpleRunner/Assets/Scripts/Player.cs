@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private bool StartGame = false;
     private bool isChangingLane;
     private float zToReach = 0f;
+    public float currentX = 0f;
     private void Start()
     {
     }
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
 
             }
             transform.Translate(Vector3.right * forwardMoveSpeed * Time.deltaTime);
+            currentX = transform.position.x;
         }
 
     }

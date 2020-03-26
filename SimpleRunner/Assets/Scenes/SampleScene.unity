@@ -337,9 +337,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e981d4e60fa2f47a6a33b19984f536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 245710154}
-  levelLength: 20
+  levelStartingLength: 20
   levelPartLength: 20
+  minObstacleCountPerLevelPart: 1
+  maxObstacleCountPerLevelPart: 3
+  minCoinCountPerLevelPart: 1
+  maxCoinCountPerLevelPart: 4
+  Obstacles:
+  - blockade_01
+  - blockade_02
 --- !u!4 &792137745
 Transform:
   m_ObjectHideFlags: 0
@@ -366,7 +372,7 @@ GameObject:
   - component: {fileID: 952507891}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,8 +389,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a62cd0f5f6ecc34188b3401d466087a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardMoveSpeed: 20
-  sideMoveSpeed: 10
+  forwardMoveSpeed: 30
+  sideMoveSpeed: 20
+  currentX: 0
 --- !u!4 &952507892
 Transform:
   m_ObjectHideFlags: 0
@@ -393,7 +400,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952507890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: -9, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 245710159}
@@ -515,6 +522,18 @@ MonoBehaviour:
   pools:
   - name: Level_part_01
     prefab: {fileID: -3566065381514283944, guid: 5df4c70fa0c9abb41ba1b9c5ed03cf1c,
+      type: 3}
+    count: 25
+  - name: blockade_01
+    prefab: {fileID: -4056974772107778964, guid: e323c792883080947956e91ac8eb6958,
+      type: 3}
+    count: 25
+  - name: blockade_02
+    prefab: {fileID: -2961129703908197775, guid: 152e8a0d4bd0cf744a1cfe939649c531,
+      type: 3}
+    count: 25
+  - name: coin
+    prefab: {fileID: 2038687868879606548, guid: d6cdce0498bfdb1498e62e8b6cba8efe,
       type: 3}
     count: 25
 --- !u!4 &1516207151

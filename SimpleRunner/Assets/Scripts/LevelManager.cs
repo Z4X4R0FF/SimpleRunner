@@ -4,56 +4,91 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject Player;
-    public int levelLength = 20;
+    private Player player;
+    public int levelStartingLength = 20;
     public float levelPartLength = 20f;
+    public int minObstacleCountPerLevelPart;
+    public int maxObstacleCountPerLevelPart;
+    public int minCoinCountPerLevelPart;
+    public int maxCoinCountPerLevelPart;
     private int[] pathPositionsZ = new int[3] { -5, 0, 5 };
     private float startingX = 0f;
     private float currentX;
-    private GameObject[] ActiveLevelParts;
-    private List<GameObject> ActiveGameObjects = new List<GameObject>();
+    public List<string> Obstacles;
 
     void Start()
     {
-        ActiveLevelParts = new GameObject[levelLength];
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         currentX = startingX;
-        for (int i = 0; i < levelLength; i++)
+        for (int i = 0; i < levelStartingLength; i++)
         {
             SpawnLevelPart(currentX);
-            SpawnLevelObjects();
+            SpawnLevelObstacles(currentX, Random.Range(minObstacleCountPerLevelPart, maxObstacleCountPerLevelPart + 1));
+            SpawnCoins(currentX, Random.Range(minCoinCountPerLevelPart, maxObstacleCountPerLevelPart + 1));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < ActiveLevelParts.Length; i++)
+        if (currentX - player.currentX < 200f)
         {
-            if (Player.transform.position.x - ActiveLevelParts[i].transform.position.x > 20f)
-            {
-                ActiveLevelParts[i].GetComponent<PoolObject>().ReturnToPool();
-                ActiveLevelParts[i] = null;
-                SpawnLevelPart(currentX);
-            }
+            SpawnLevelPart(currentX);
+            SpawnLevelObstacles(currentX, Random.Range(minObstacleCountPerLevelPart, maxObstacleCountPerLevelPart + 1));
+            SpawnCoins(currentX, Random.Range(minCoinCountPerLevelPart, maxObstacleCountPerLevelPart + 1));
         }
+
 
     }
 
     void SpawnLevelPart(float x)
     {
-        GameObject levelObject = PoolManager.GetObject("Level_part_01", new Vector3(currentX, 0, 0), Quaternion.identity);
-        for (int i = 0; i < ActiveLevelParts.Length; i++)
-        {
-            if (ActiveLevelParts[i] == null)
-            {
-                ActiveLevelParts[i] = levelObject;
-                break;
-            }
-        }
+        PoolManager.GetObject("Level_part_01", new Vector3(currentX, 0, 0), Quaternion.identity);
         currentX += levelPartLength;
     }
-    void SpawnLevelObjects()
+    void SpawnLevelObstacles(float startingX, int count)
     {
-        
+        for (int i = 0; i < count; i++)
+        {
+            var pathNumber = Random.Range(0, 3);
+            var obstacle = Obstacles[Random.Range(0, Obstacles.Count)];
+            float z = 0f;
+            switch (pathNumber)
+            {
+                case 0:
+                    z = -5f;
+                    break;
+                case 1:
+                    z = 0f;
+                    break;
+                case 2:
+                    z = 5f;
+                    break;
+            }
+            var x = Random.Range(startingX, startingX + 20);
+            PoolManager.GetObject(obstacle, new Vector3(x, 1.2f, z), Quaternion.identity);
+        }
+    }
+    void SpawnCoins(float startingX, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            var pathNumber = Random.Range(0, 3);
+            float z = 0f;
+            switch (pathNumber)
+            {
+                case 0:
+                    z = -5f;
+                    break;
+                case 1:
+                    z = 0f;
+                    break;
+                case 2:
+                    z = 5f;
+                    break;
+            }
+            var x = Random.Range(startingX, startingX + 20);
+            PoolManager.GetObject("coin", new Vector3(x, 1.2f, z), Quaternion.identity);
+        }
     }
 }
