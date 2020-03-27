@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1480420588554586878}
   - component: {fileID: -2961129703908197775}
   - component: {fileID: 3504639839322287045}
-  m_Layer: 0
+  - component: {fileID: 925063964589276572}
+  m_Layer: 8
   m_Name: blockade_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,11 +55,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480420588554586877}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.67, y: 2.33, z: 3.7}
   m_Center: {x: 0, y: -0.27, z: 0}
+--- !u!54 &925063964589276572
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480420588554586877}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3161021754246962752
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +87,7 @@ GameObject:
   - component: {fileID: 2267560241533889562}
   - component: {fileID: 4683489917772324284}
   - component: {fileID: 3459429535739996440}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 918832710956128680}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +199,7 @@ GameObject:
   - component: {fileID: 6561901609746793918}
   - component: {fileID: 6585343270025269945}
   - component: {fileID: 5057399420360396267}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCube3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +278,7 @@ GameObject:
   - component: {fileID: 9034494183815089232}
   - component: {fileID: 8570737920811086515}
   - component: {fileID: 533340167180067557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pCube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

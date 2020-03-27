@@ -12,7 +12,7 @@ public static class PoolManager
         public string name;
         public PoolObject prefab;
         public int count;
-        public ObjectPooling ferula;
+        public ObjectPooling poolGroup;
     }
     public static void Initialize(PoolPart[] newPools)
     {
@@ -23,8 +23,8 @@ public static class PoolManager
         {
             if (pools[i].prefab != null)
             {
-                pools[i].ferula = new ObjectPooling();
-                pools[i].ferula.Initialize(pools[i].count, pools[i].prefab, objectsParent.transform);
+                pools[i].poolGroup = new ObjectPooling();
+                pools[i].poolGroup.Initialize(pools[i].count, pools[i].prefab, objectsParent.transform);
             }
         }
     }
@@ -38,7 +38,7 @@ public static class PoolManager
             {
                 if (string.Compare(pools[i].name, name) == 0)
                 {
-                    result = pools[i].ferula.GetObject().gameObject;
+                    result = pools[i].poolGroup.GetObject().gameObject;
                     result.transform.position = position;
                     result.transform.rotation = rotation;
                     result.SetActive(true);

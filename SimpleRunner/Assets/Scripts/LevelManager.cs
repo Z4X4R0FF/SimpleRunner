@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public static bool StartGame = false;
     private Player player;
     public int levelStartingLength = 20;
-    public float levelPartLength = 20f;
+    private float levelPartLength = 20f;
     public int minObstacleCountPerLevelPart;
     public int maxObstacleCountPerLevelPart;
     public int minCoinCountPerLevelPart;
     public int maxCoinCountPerLevelPart;
     private int[] pathPositionsZ = new int[3] { -5, 0, 5 };
-    private float startingX = 0f;
+    private float startingX = 9f;
     private float currentX;
     public List<string> Obstacles;
 
@@ -27,15 +28,13 @@ public class LevelManager : MonoBehaviour
             SpawnCoins(currentX, Random.Range(minCoinCountPerLevelPart, maxObstacleCountPerLevelPart + 1));
         }
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (currentX - player.currentX < 200f)
         {
             SpawnLevelPart(currentX);
             SpawnLevelObstacles(currentX, Random.Range(minObstacleCountPerLevelPart, maxObstacleCountPerLevelPart + 1));
-            SpawnCoins(currentX, Random.Range(minCoinCountPerLevelPart, maxObstacleCountPerLevelPart + 1));
+            SpawnCoins(currentX, Random.Range(minCoinCountPerLevelPart, maxCoinCountPerLevelPart + 1));
         }
 
 
@@ -56,13 +55,13 @@ public class LevelManager : MonoBehaviour
             switch (pathNumber)
             {
                 case 0:
-                    z = -5f;
+                    z = pathPositionsZ[0];
                     break;
                 case 1:
-                    z = 0f;
+                    z = pathPositionsZ[1];
                     break;
                 case 2:
-                    z = 5f;
+                    z = pathPositionsZ[2];
                     break;
             }
             var x = Random.Range(startingX, startingX + 20);
@@ -78,13 +77,13 @@ public class LevelManager : MonoBehaviour
             switch (pathNumber)
             {
                 case 0:
-                    z = -5f;
+                    z = pathPositionsZ[0];
                     break;
                 case 1:
-                    z = 0f;
+                    z = pathPositionsZ[1];
                     break;
                 case 2:
-                    z = 5f;
+                    z = pathPositionsZ[2];
                     break;
             }
             var x = Random.Range(startingX, startingX + 20);

@@ -1,22 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float forwardMoveSpeed = 20f;
     public float sideMoveSpeed = 5f;
-    private bool StartGame = false;
     private bool isChangingLane;
     private float zToReach = 0f;
+    [HideInInspector]
     public float currentX = 0f;
     private void Start()
     {
+        if (PlayerPrefs.HasKey("CoinCount"))
+            PlayerInfo.CoinCount = PlayerPrefs.GetInt("CoinCount");
+        else PlayerInfo.CoinCount = 0;
     }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space)) StartGame = true;
-        if (StartGame)
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (!PlayerInfo.GameOver)
+                LevelManager.StartGame = true;
+            else
+            {
+                PlayerInfo.GameOver = false;
+                PlayerInfo.DistanceTraveled = 0f;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+        if (LevelManager.StartGame)
         {
             if (isChangingLane)
             {
@@ -37,11 +50,27 @@ public class Player : MonoBehaviour
                     isChangingLane = true;
                     zToReach += 5f;
                 }
-
             }
-            transform.Translate(Vector3.right * forwardMoveSpeed * Time.deltaTime);
             currentX = transform.position.x;
+            PlayerInfo.DistanceTraveled = currentX;
         }
 
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 8)
+        {
+            LevelManager.StartGame = false;
+            PlayerInfo.GameOver = true;
+            PlayerPrefs.SetInt("CoinCount", PlayerInfo.CoinCount);
+            PlayerPrefs.Save();
+        }
+        else if (other.gameObject.layer == 9)
+        {
+            PlayerInfo.CoinCount++;
+            other.gameObject.GetComponent<PoolObject>().ReturnToPool();
+            Debug.Log(PlayerInfo.CoinCount);
+        }
     }
 }
